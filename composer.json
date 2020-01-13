@@ -1,0 +1,6 @@
+{
+    "name": "gurgul/meetings-vue-slim",
+    "require": {
+        "slim/slim": "^3"
+    }
+}
