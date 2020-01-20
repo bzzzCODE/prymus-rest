@@ -34,7 +34,7 @@ $app->get(
             ['id' => 2, 'firstname' => 'Kate', 'lastname' => 'Pig'],
             ['id' => 3, 'firstname' => 'Chris', 'lastname' => 'Lua'],
         ];
-        return $response->withJson($participants);
+        return $response->withJson($participants/'$id');
     }
 );
 
