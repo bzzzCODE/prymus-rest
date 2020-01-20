@@ -17,6 +17,27 @@ $app->get(
 $app->get(
     '/api/participants',
     function (Request $request, Response $response, array $args) {
+
+        class MyDB extends SQLite3 {
+            function __construct() {
+                $this->open('../participants.db');
+            }
+        }
+        $db = new MyDB();
+        if(!$db) {
+            echo $db->lastErrorMsg();
+            exit();
+        }
+
+        $sql = "SELECT id, name, surname FROM customer";
+        $ret = $db->query($sql);
+        while($row = $ret->fetchArray(SQLITE3_ASSOC) ) {
+            echo "id = ". $row['id'] . ", ";
+            echo "name = ". $row['name'] . ", ";
+            echo "surname = ". $row['surname'] ."<br>";
+        }
+        $db->close();
+
         $participants = [
             ['id' => 1, 'firstname' => 'John', 'lastname' => 'Doe'],
             ['id' => 2, 'firstname' => 'Kate', 'lastname' => 'Pig'],
