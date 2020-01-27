@@ -29,33 +29,16 @@ $app->get(
             exit();
         }
 
-        $sql = "SELECT id, name, surname FROM customer";
+        $participants = [];
+
+        $sql = "SELECT id, firstname, lastname FROM participant";
         $ret = $db->query($sql);
         while($row = $ret->fetchArray(SQLITE3_ASSOC) ) {
-            echo "id = ". $row['id'] . ", ";
-            echo "name = ". $row['name'] . ", ";
-            echo "surname = ". $row['surname'] ."<br>";
+            $participants[] = $row;
         }
         $db->close();
 
-        $participants = [
-            ['id' => 1, 'firstname' => 'John', 'lastname' => 'Doe'],
-            ['id' => 2, 'firstname' => 'Kate', 'lastname' => 'Pig'],
-            ['id' => 3, 'firstname' => 'Chris', 'lastname' => 'Lua'],
-        ];
         return $response->withJson($participants);
-    }
-);
-
-$app->get(
-    '/api/participants/$id',
-    function (Request $request, Response $response, array $args){
-        $participants = [
-            ['id' => 1, 'firstname' => 'John', 'lastname' => 'Doe'],
-            ['id' => 2, 'firstname' => 'Kate', 'lastname' => 'Pig'],
-            ['id' => 3, 'firstname' => 'Chris', 'lastname' => 'Lua'],
-        ];
-        return $response->withJson($participants/'$id');
     }
 );
 
