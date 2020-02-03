@@ -38,7 +38,9 @@
     },
     methods: {
       addNewParticipant(participant) {
-        this.$http.post('participants', participant);
+        this.$http.post('participants', participant).then(response => {
+          this.people.push(participant);
+        });
       }
     },
     mounted() {

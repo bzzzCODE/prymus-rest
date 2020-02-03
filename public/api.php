@@ -45,12 +45,15 @@ $app->get(
 
 $app->post(
     '/api/participants',
-    function (Request $requestData, Request $request, Response $response, array $args) use ($db) {
+    function (Request $request, Response $response, array $args) use ($db) {
 
         $requestData = $request->getParsedBody();
 
-        $sql = "INSERT INTO participant (firstname, lastname) VALUES(firstname, lastname)";
-        $ret = $db->query($sql);
+        $sql = "INSERT INTO participant (firstname, lastname) VALUES('$requestData[firstname]', '$requestData[lastname]')";
+        $db->exec($sql);
+        $db->close();
+
+        return $response->withStatus(201);
     }
 );
 
